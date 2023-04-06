@@ -3,7 +3,7 @@
 #include "game.h"
 #include "error_handler.h"
 #include "vector2.h"
-
+#include "ball.h"
 #include <iostream>
 
 int main()
@@ -20,28 +20,32 @@ int main()
         return -1;
     }
     
-    Vector2 vec(2, 2);
+    Ball ball(200, 200, 8, 5);
+    
 
-    vec = -vec;
-
-    std::cout << vec.x << " " << vec.y;
-
-    /*ALLEGRO_EVENT event;
+    ALLEGRO_EVENT event;
     bool running = true;
     while (running)
     {
         al_wait_for_event(game.queue, &event);
         switch (event.type)
         {
-            case ALLEGRO_EVENT_KEY_DOWN:
+        case ALLEGRO_EVENT_TIMER:
+            al_draw_filled_rectangle(0, 0, 800, 600, al_map_rgb(0, 0, 0));
+            ball.update();
+            ball.render();
+            al_flip_display();           
+            break;
+
+        case ALLEGRO_EVENT_KEY_DOWN:
                 running = false;
             break;
 
-            case ALLEGRO_EVENT_DISPLAY_CLOSE:
+        case ALLEGRO_EVENT_DISPLAY_CLOSE:
                 running = false;
             break;
         }
-    }*/
+    }
 
     return 0;
 }
