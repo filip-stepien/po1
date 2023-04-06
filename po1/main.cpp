@@ -2,6 +2,7 @@
 #include "config.h"
 #include "game.h"
 #include "error_handler.h"
+#include "vector2.h"
 
 #include <iostream>
 
@@ -18,8 +19,14 @@ int main()
         std::cout << error_handler.get_err_msg();
         return -1;
     }
+    
+    Vector2 vec(2, 2);
 
-    ALLEGRO_EVENT event;
+    vec = -vec;
+
+    std::cout << vec.x << " " << vec.y;
+
+    /*ALLEGRO_EVENT event;
     bool running = true;
     while (running)
     {
@@ -34,7 +41,7 @@ int main()
                 running = false;
             break;
         }
-    }
+    }*/
 
     return 0;
 }
