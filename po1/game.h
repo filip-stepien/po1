@@ -4,7 +4,6 @@
 
 class Game {
 public:
-    struct Config config;
     bool game_initialized;
     bool keyboard_initialized;
     bool primitive_shapes_addon_initialized;
@@ -15,7 +14,7 @@ public:
     ALLEGRO_FONT* font;
     ALLEGRO_TIMER* timer;
 
-    Game(struct Config config);
+    Game();
     ~Game();
     void init();
     void destroy();

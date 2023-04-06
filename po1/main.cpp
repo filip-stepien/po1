@@ -4,12 +4,12 @@
 #include "error_handler.h"
 #include "vector2.h"
 #include "ball.h"
+#include "level.h"
 #include <iostream>
 
 int main()
 {
-    struct Config config = { 800, 600, 16, 30 };
-    Game game(config);
+    Game game;
     Error_handler error_handler(&game);
 
     game.init();
@@ -22,6 +22,15 @@ int main()
     
     Ball ball(200, 200, 8, 5);
     
+    Level::pattern map = {
+        { 1, 0, 1, 1, 0, 0 },
+        { 0, 1, 0, 1, 0, 0 },
+        { 1, 0, 1, 1, 1, 0 },
+        { 0, 0, 0, 0, 0, 0 },
+        { 1, 1, 1, 1, 1, 1 }
+    };
+
+    Level level(50, 50, 700, 500, 200, map);
 
     ALLEGRO_EVENT event;
     bool running = true;
@@ -30,20 +39,14 @@ int main()
         al_wait_for_event(game.queue, &event);
         switch (event.type)
         {
-        case ALLEGRO_EVENT_TIMER:
-            al_draw_filled_rectangle(0, 0, 800, 600, al_map_rgb(0, 0, 0));
-            ball.update();
-            ball.render();
-            al_flip_display();           
-            break;
+            case ALLEGRO_EVENT_TIMER:
+                level.render();
+                al_flip_display();           
+                break;
 
-        case ALLEGRO_EVENT_KEY_DOWN:
-                running = false;
-            break;
-
-        case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                running = false;
-            break;
+            case ALLEGRO_EVENT_DISPLAY_CLOSE:
+                    running = false;
+                break;
         }
     }
 

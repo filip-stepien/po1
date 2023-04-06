@@ -20,3 +20,8 @@ struct Ball_config {
 	double speed;
 	int x, y;
 };
+
+struct Level_config {
+	int x_count;
+	int y_count;
+};

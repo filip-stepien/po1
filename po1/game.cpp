@@ -2,8 +2,9 @@
 #include "game.h"
 #include "config.h"
 
-Game::Game(struct Config config) {
-    this->config = config;
+extern struct Config config;
+
+Game::Game() {
     game_initialized = false;
     keyboard_initialized = false;
     primitive_shapes_addon_initialized = false;
