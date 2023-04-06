@@ -14,3 +14,9 @@ struct Player_config {
 	int y;
 	double speed;
 };
+
+struct Ball_config {
+	double radius;
+	double speed;
+	int x, y;
+};
