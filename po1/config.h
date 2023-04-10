@@ -7,21 +7,4 @@ struct Config {
     int fps;
 };
 
-struct Player_config {
-	int width;
-	int height;
-	int x;
-	int y;
-	double speed;
-};
-
-struct Ball_config {
-	double radius;
-	double speed;
-	int x, y;
-};
-
-struct Level_config {
-	int x_count;
-	int y_count;
-};
+extern struct Config config;

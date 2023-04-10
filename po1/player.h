@@ -1,18 +1,19 @@
 #pragma once
-#include "vector2.h"
 #include "config.h"
 
 class Player {
 public:
 	int width;
 	int height;
-	int top_x;
-	int top_y;
-	int bottom_x;
-	int bottom_y;
+	int x;
+	int y;
 	double speed;
-	Vector2 velocity;
+	bool moving_right;
+	bool moving_left;
 
 	Player(int width, int height, int x, int y, double speed);
-	Player(struct Player_config config);
+
+	void render();
+	void move_right();
+	void move_left();
 };

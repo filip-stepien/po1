@@ -1,5 +1,6 @@
 #include "level.h"
 #include "allegro_includes.h"
+#include "brick.h"
 #include <iostream>
 
 Level::Level(int x, int y, int width, int height, int player_gap, Level::pattern map) {
@@ -17,25 +18,28 @@ Level::Level(int x, int y, int width, int height, int player_gap, Level::pattern
 	brick_height = (height - player_gap) / y_count;
 }
 
-void Level::render() {
+void Level::init() {
 	int x = this->x;
 	int y = this->y;
 
-	for (int i = 0; i < y_count; i++) {
+	for (int i = 0; i < y_count; i++) { 
 		for (int j = 0; j < x_count; j++) {
 			if (map[i][j]) {
-				al_draw_rectangle(
-					x, 
-					y, 
-					x + brick_width, 
-					y + brick_height, 
-					al_map_rgb(255, 0, 0),
-					2
-				);
+				bricks.push_back(Brick(x, y, brick_width, brick_height));
 			}
 			x += brick_width;
 		}
 		x = this->x;
 		y += brick_height;
+	}
+}
+
+void Level::update() {
+
+}
+
+void Level::render() {
+	for (Brick &brick : bricks) {
+		brick.render();
 	}
 }

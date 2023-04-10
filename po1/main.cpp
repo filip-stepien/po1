@@ -5,6 +5,7 @@
 #include "vector2.h"
 #include "ball.h"
 #include "level.h"
+#include "player.h"
 #include <iostream>
 
 int main()
@@ -20,28 +21,89 @@ int main()
         return -1;
     }
     
-    Ball ball(200, 200, 8, 5);
+    Ball ball(500, 500, 8, 10);
+    Player player(200, 20, 300, 550, 5);
     
     Level::pattern map = {
-        { 1, 0, 1, 1, 0, 0 },
-        { 0, 1, 0, 1, 0, 0 },
-        { 1, 0, 1, 1, 1, 0 },
-        { 0, 0, 0, 0, 0, 0 },
-        { 1, 1, 1, 1, 1, 1 }
+        { 1, 0, 1, 0, 0, 0, 0, 0, 1 },
+        { 0, 0, 1, 0, 1, 0, 1, 0, 0 },
+        { 1, 0, 0, 1, 0, 0, 0, 1, 0 },
+        { 0, 1, 0, 0, 1, 0, 1, 0, 0 },
+        { 0, 0, 1, 0, 1, 0, 0, 0, 1 },
     };
 
     Level level(50, 50, 700, 500, 200, map);
+    level.init();
 
     ALLEGRO_EVENT event;
     bool running = true;
+
+    float margin = 0.1f;
+
     while (running)
     {
         al_wait_for_event(game.queue, &event);
         switch (event.type)
         {
             case ALLEGRO_EVENT_TIMER:
+                if (player.moving_left) player.move_left();
+                if (player.moving_right) player.move_right();
+
+                al_draw_filled_rectangle(0, 0, config.window_width, config.window_height, al_map_rgb(0, 0, 0));
+
+                for (int i = 0; i < level.bricks.size(); i++) {
+                    Brick brick = level.bricks[i];
+                    if (ball.x + ball.radius > brick.x - brick.width * margin && ball.x - ball.radius < brick.x + brick.width * (1 + margin)
+                        && ball.y + ball.radius > brick.y - brick.height * margin && ball.y - ball.radius < brick.y + brick.height * (1 + margin)) {
+                        if (ball.x < brick.x) {
+                            ball.velocity.x = -ball.velocity.x;
+                            ball.x = brick.x - ball.radius - ball.speed;
+                        }
+                        else if (ball.x > brick.x + brick.width) {
+                            ball.velocity.x = -ball.velocity.x;
+                            ball.x = brick.x + ball.radius + brick.width + ball.speed;
+                        }
+
+                        if(ball.y < brick.y) {
+                            ball.velocity.y = -ball.velocity.y;
+                            ball.y = brick.y - ball.radius - ball.speed;
+                        }
+                        else if (ball.y > brick.y + brick.height) {
+                            ball.velocity.y = -ball.velocity.y;
+                            ball.y = brick.y + ball.radius + brick.height + ball.speed;
+                        }
+                    }
+                }
+
+                ball.update();
+                ball.render();
+
+                player.render();
                 level.render();
+
                 al_flip_display();           
+                break;
+
+            case ALLEGRO_EVENT_KEY_DOWN:
+                switch (event.keyboard.keycode) {
+                    case ALLEGRO_KEY_LEFT:
+                        player.moving_left = true;
+                        break;
+                    case ALLEGRO_KEY_RIGHT:
+                        player.moving_right = true;
+                        break;
+                }
+                break;
+
+            case ALLEGRO_EVENT_KEY_UP:
+                switch (event.keyboard.keycode) {
+                    case ALLEGRO_KEY_LEFT:
+                        player.moving_left = false;
+                        break;
+                    case ALLEGRO_KEY_RIGHT:
+                        player.moving_right = false;
+                        break;
+                }
                 break;
 
             case ALLEGRO_EVENT_DISPLAY_CLOSE:

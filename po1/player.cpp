@@ -1,23 +1,27 @@
 #include "player.h"
+#include "allegro_includes.h"
 
 Player::Player(int width, int height, int x, int y, double speed) {
 	this->width = width;
 	this->height = height;
-	this->top_x = x;
-	this->top_y = y;
-	this->bottom_x = x + width;
-	this->bottom_y = y + height;
+	this->x = x;
+	this->y = y;
 	this->speed = speed;
-	this->velocity = Vector2(0, 0);
+
+	moving_right = false;
+	moving_left = false;
 }
 
-Player::Player(struct Player_config config) {
-	this->width = config.width;
-	this->height = config.height;
-	this->top_x = config.x;
-	this->top_y = config.y;
-	this->bottom_x = config.x + config.width;
-	this->bottom_y = config.y + config.height;
-	this->speed = config.speed;
-	this->velocity = Vector2(0, 0);
+void Player::move_right() {
+	if(x < config.window_width - width)
+		x += speed;
+}
+
+void Player::move_left() {
+	if(x > 0)
+		x -= speed;
+}
+
+void Player::render() {
+	al_draw_filled_rectangle(x, y, x + width, y + height, al_map_rgb(255, 255, 255));
 }
