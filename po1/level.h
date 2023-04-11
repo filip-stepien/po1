@@ -15,11 +15,11 @@ public:
 	int brick_width;
 	int brick_height;
 	int player_gap;
-	std::vector<Brick> bricks;
+	std::vector<Brick*> bricks;
 	pattern map;
 
 	Level(int x, int y, int width, int height, int player_gap, pattern map);
+	~Level();
 	void init();
-	void update();
 	void render();
 };

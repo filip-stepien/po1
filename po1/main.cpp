@@ -7,9 +7,10 @@
 #include "level.h"
 #include "player.h"
 #include <iostream>
+#include <cmath>
+#include <numbers>
 
-int main()
-{
+int main() {
     Game game;
     Error_handler error_handler(&game);
 
@@ -22,24 +23,21 @@ int main()
     }
     
     Ball ball(500, 500, 8, 10);
-    Player player(200, 20, 300, 550, 5);
+    Player player(100, 20, 300, 550, 20);
     
     Level::pattern map = {
-        { 1, 0, 1, 0, 0, 0, 0, 0, 1 },
-        { 0, 0, 1, 0, 1, 0, 1, 0, 0 },
-        { 1, 0, 0, 1, 0, 0, 0, 1, 0 },
-        { 0, 1, 0, 0, 1, 0, 1, 0, 0 },
-        { 0, 0, 1, 0, 1, 0, 0, 0, 1 },
+        { 1, 0, 1, 0, 0, 0, 0, 0 },
+        { 0, 0, 1, 0, 1, 0, 1, 0 },
+        { 1, 0, 0, 1, 0, 0, 0, 1 },
+        { 0, 1, 3, 0, 1, 0, 1, 0 },
+        { 1, 2, 1, 3, 1, 3, 1, 2 },
     };
 
-    Level level(50, 50, 700, 500, 200, map);
+    Level level(0, 0, 800, 500, 200, map);
     level.init();
 
     ALLEGRO_EVENT event;
     bool running = true;
-
-    float margin = 0.1f;
-
     while (running)
     {
         al_wait_for_event(game.queue, &event);
@@ -52,28 +50,21 @@ int main()
                 al_draw_filled_rectangle(0, 0, config.window_width, config.window_height, al_map_rgb(0, 0, 0));
 
                 for (int i = 0; i < level.bricks.size(); i++) {
-                    Brick brick = level.bricks[i];
-                    if (ball.x + ball.radius > brick.x - brick.width * margin && ball.x - ball.radius < brick.x + brick.width * (1 + margin)
-                        && ball.y + ball.radius > brick.y - brick.height * margin && ball.y - ball.radius < brick.y + brick.height * (1 + margin)) {
-                        if (ball.x < brick.x) {
-                            ball.velocity.x = -ball.velocity.x;
-                            ball.x = brick.x - ball.radius - ball.speed;
-                        }
-                        else if (ball.x > brick.x + brick.width) {
-                            ball.velocity.x = -ball.velocity.x;
-                            ball.x = brick.x + ball.radius + brick.width + ball.speed;
-                        }
+                    Brick *brick = level.bricks[i];
 
-                        if(ball.y < brick.y) {
-                            ball.velocity.y = -ball.velocity.y;
-                            ball.y = brick.y - ball.radius - ball.speed;
-                        }
-                        else if (ball.y > brick.y + brick.height) {
-                            ball.velocity.y = -ball.velocity.y;
-                            ball.y = brick.y + ball.radius + brick.height + ball.speed;
+                    if (ball.check_collision(brick)) {
+                        ball.collide(brick);
+                        brick->update();
+
+                        if (brick->should_break) {
+                            level.bricks.erase(level.bricks.begin() + i);
+                            delete brick;
                         }
                     }
                 }
+
+                if (ball.check_collision(player))
+                    ball.collide(player);
 
                 ball.update();
                 ball.render();

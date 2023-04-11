@@ -18,15 +18,33 @@ Level::Level(int x, int y, int width, int height, int player_gap, Level::pattern
 	brick_height = (height - player_gap) / y_count;
 }
 
+Level::~Level() {
+	for (auto brick : bricks) {
+		delete brick;
+	}
+
+	bricks.clear();
+}
+
 void Level::init() {
 	int x = this->x;
 	int y = this->y;
 
 	for (int i = 0; i < y_count; i++) { 
 		for (int j = 0; j < x_count; j++) {
-			if (map[i][j]) {
-				bricks.push_back(Brick(x, y, brick_width, brick_height));
+
+			switch (map[i][j]) {
+				case 1:
+					bricks.push_back(new Brick(x, y, brick_width, brick_height));
+					break;
+				case 2:
+					bricks.push_back(new Brick_double(x, y, brick_width, brick_height));
+					break;
+				case 3:
+					bricks.push_back(new Brick_solid(x, y, brick_width, brick_height));
+					break;
 			}
+
 			x += brick_width;
 		}
 		x = this->x;
@@ -34,12 +52,8 @@ void Level::init() {
 	}
 }
 
-void Level::update() {
-
-}
-
 void Level::render() {
-	for (Brick &brick : bricks) {
-		brick.render();
+	for (auto brick : bricks) {
+		brick->render();
 	}
 }
