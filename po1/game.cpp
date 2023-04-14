@@ -10,10 +10,11 @@ Game::Game() {
     primitive_shapes_addon_initialized = false;
     font_addon_initialized = false;
     ttf_addon_initialized = false;
-    display = NULL;
-    queue = NULL;
-    font = NULL;
-    timer = NULL;
+    display = nullptr;
+    queue = nullptr;
+    font = nullptr;
+    timer = nullptr;
+    running = false;
 }
 
 Game::~Game() {
@@ -29,12 +30,14 @@ void Game::init() {
     display = al_create_display(config.window_width, config.window_height);
     queue = al_create_event_queue();
     font = al_load_font("Arial.ttf", config.font_size, NULL);
-    timer = al_create_timer(1.0 / (double)config.fps);
+    timer = al_create_timer(1.0l / static_cast<double>(config.fps));
 
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_timer_event_source(timer));
     al_start_timer(timer);
+
+    running = true;
 }
 
 void Game::destroy() {

@@ -13,6 +13,8 @@ public:
     ALLEGRO_EVENT_QUEUE* queue;
     ALLEGRO_FONT* font;
     ALLEGRO_TIMER* timer;
+    ALLEGRO_EVENT event;
+    bool running;
 
     Game();
     ~Game();

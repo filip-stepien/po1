@@ -3,6 +3,6 @@
 struct Config config = {
 	800,
 	600,
-	16,
+	32,
 	60
 };

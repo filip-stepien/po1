@@ -5,6 +5,8 @@
 
 #include <math.h>
 
+#include <iostream>
+
 constexpr double PI = 3.141592653589793238462643383279502884L;
 
 Ball::Ball(int x, int y, double radius, double speed) {
@@ -13,7 +15,8 @@ Ball::Ball(int x, int y, double radius, double speed) {
 	this->radius = radius;
 	this->speed = speed;
 	this->velocity = Vector2(-1, 1);
-	this->margin = 0.1f;
+	this->last_hit = nullptr;
+	this->color = al_map_rgb(255, 255, 255);
 }
 
 void Ball::update()
@@ -29,6 +32,8 @@ void Ball::update()
 			x = config.window_width - radius;
 		if (x < radius)
 			x = radius;
+		
+		last_hit = nullptr;
 	}
 
 	if (y > config.window_height - radius || y < radius) {
@@ -37,17 +42,19 @@ void Ball::update()
 			y = config.window_height - radius;
 		if (y < radius)
 			y = radius;
+
+		last_hit = nullptr;
 	}
 }
 
 void Ball::render()
 {
-	al_draw_circle(x, y, radius, al_map_rgb(255, 255, 255), 1);
+	al_draw_filled_circle(x, y, radius, color);
 }
 
 bool Ball::check_collision(const Brick *brick) {
-	if (x + radius > brick->x - brick->width * margin && x - radius < brick->x + brick->width * (1 + margin)
-		&& y + radius > brick->y - brick->height * margin && y - radius < brick->y + brick->height * (1 + margin)) {
+	if (x + radius > brick->x && x - radius < brick->x + brick->width &&
+		y + radius > brick->y && y - radius < brick->y + brick->height) {
 		return true;
 	}
 	return false;
@@ -62,22 +69,11 @@ bool Ball::check_collision(const Player& player) {
 }
 
 void Ball::collide(const Brick *brick) {
-	if (x < brick->x) {
+	if (x < brick->x || x > brick->x + brick->width) {
 		velocity.x = -velocity.x;
-		x = brick->x - radius - speed;
 	}
-	else if (x > brick->x + brick->width) {
-		velocity.x = -velocity.x;
-		x = brick->x + radius + brick->width + speed;
-	}
-
-	if (y < brick->y) {
+	else {
 		velocity.y = -velocity.y;
-		y = brick->y - radius - speed;
-	}
-	else if (y > brick->y + brick->height) {
-		velocity.y = -velocity.y;
-		y = brick->y + radius + brick->height + speed;
 	}
 }
 
@@ -89,4 +85,5 @@ void Ball::collide(const Player& player) {
 	velocity.y = speed * cos(angle);
 
 	velocity.y = -velocity.y;
+	last_hit = nullptr;
 }
