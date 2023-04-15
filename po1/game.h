@@ -15,9 +15,11 @@ public:
     ALLEGRO_TIMER* timer;
     ALLEGRO_EVENT event;
     bool running;
+    bool beginning;
 
     Game();
     ~Game();
+
     void init();
     void destroy();
 };

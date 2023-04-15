@@ -1,8 +1,4 @@
-#include "allegro_includes.h"
 #include "game.h"
-#include "config.h"
-
-extern struct Config config;
 
 Game::Game() {
     game_initialized = false;
@@ -13,8 +9,10 @@ Game::Game() {
     display = nullptr;
     queue = nullptr;
     font = nullptr;
+    event = {};
     timer = nullptr;
-    running = false;
+    running = true;
+    beginning = true;
 }
 
 Game::~Game() {
@@ -36,8 +34,6 @@ void Game::init() {
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_timer_event_source(timer));
     al_start_timer(timer);
-
-    running = true;
 }
 
 void Game::destroy() {

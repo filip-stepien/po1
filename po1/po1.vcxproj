@@ -152,6 +152,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="points.cpp" />
     <ClCompile Include="vector2.cpp" />
+    <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -167,6 +168,7 @@
     <ClInclude Include="points.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

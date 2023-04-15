@@ -1,21 +1,27 @@
 #include "level.h"
-#include "allegro_includes.h"
-#include "brick.h"
-#include <iostream>
 
-Level::Level(int x, int y, int width, int height, int player_gap, Level::pattern map) {
+Level::Level(Level::pattern map, Game* game, Points* points) {
+	this->x = 0;
+	this->y = 0;
+	this->width = config.window_width;
+	this->height = config.window_height;
+	this->player_gap = config.player_gap;
+	this->map = map;
+	this->solid_brick_count = 0;
+	this->game = game;
+	this->points = points;
+}
+
+Level::Level(int x, int y, int width, int height, int player_gap, Level::pattern map, Game* game, Points* points) {
 	this->x = x;
 	this->y = y;
 	this->width = width;
 	this->height = height;
 	this->player_gap = player_gap;
 	this->map = map;
-	
-	x_count = map[0].size();
-	y_count = map.size();
-
-	brick_width = width / x_count;
-	brick_height = (height - player_gap) / y_count;
+	this->solid_brick_count = 0;
+	this->game = game;
+	this->points = points;
 }
 
 Level::~Level() {
@@ -29,6 +35,13 @@ Level::~Level() {
 void Level::init() {
 	int x = this->x;
 	int y = this->y;
+	int x_count = map[0].size();
+	int y_count = map.size();
+	int brick_width = width / x_count;
+	int brick_height = (height - player_gap) / y_count;
+
+	bricks.clear();
+	solid_brick_count = 0;
 
 	for (int i = 0; i < y_count; i++) { 
 		for (int j = 0; j < x_count; j++) {
@@ -42,6 +55,7 @@ void Level::init() {
 					break;
 				case 3:
 					bricks.push_back(new Brick_solid(x, y, brick_width, brick_height));
+					solid_brick_count++;
 					break;
 			}
 
@@ -55,5 +69,20 @@ void Level::init() {
 void Level::render() {
 	for (auto brick : bricks) {
 		brick->render();
+	}
+}
+
+bool Level::did_game_end() {
+	if (bricks.size() == solid_brick_count) {
+		return true;
+	}
+	return false;
+}
+
+void Level::handle_game_end() {
+	if (did_game_end()) {
+		init();
+		game->beginning = true;
+		points->counter = 0;
 	}
 }

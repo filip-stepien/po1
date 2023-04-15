@@ -1,9 +1,13 @@
-#include "allegro_includes.h"
 #include "points.h"
-#include <string>
-#include "config.h"
 
-extern struct Config config;
+Points::Points(ALLEGRO_FONT* font) {
+	this->x = config.points_x;
+	this->y = config.points_y;
+	this->width = config.points_width;
+	this->height = config.points_height;
+	this->counter = 0;
+	this->font = font;
+}
 
 Points::Points(int x, int y, int width, int height, ALLEGRO_FONT* font) {
 	this->x = x;

@@ -1,6 +1,4 @@
 #include "error_handler.h"
-#include "game.h"
-#include <iostream>
 
 Error_handler::Error_handler(Game* game) {
     this->game = game;

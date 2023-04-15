@@ -1,5 +1,6 @@
 #pragma once
 #include "allegro_includes.h"
+#include "config.h"
 
 class Brick {
 	public:

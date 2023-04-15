@@ -1,5 +1,4 @@
 #include "brick.h"
-#include "level.h"
 
 Brick::Brick(int x, int y, int width, int height) {
 	this->x = x;
@@ -7,11 +6,12 @@ Brick::Brick(int x, int y, int width, int height) {
 	this->width = width;
 	this->height = height;
 	this->should_break = false;
-	this->color = al_map_rgb(150, 150, 150);
+	this->color = config.soft_brick_color;
 }
 
 void Brick::render() {
 	al_draw_filled_rectangle(x, y, x + width, y + height, color);
+	al_draw_rectangle(x, y, x + width, y + height, al_map_rgb(0, 0, 0), 10);
 }
 
 void Brick::update() {
@@ -25,11 +25,11 @@ Brick_double::Brick_double(int x, int y, int width, int height) : Brick(x, y, wi
 	this->height = height;
 	this->should_break = false;
 	this->hit_count = 0;
-	this->color = al_map_rgb(255, 255, 255);
+	this->color = config.double_brick_color;
 }
 
 void Brick_double::update() {
-	color = al_map_rgb(150, 150, 150);
+	color = config.soft_brick_color;
 	hit_count++;
 	if (hit_count == 2)
 		should_break = true;
@@ -41,7 +41,7 @@ Brick_solid::Brick_solid(int x, int y, int width, int height) : Brick(x, y, widt
 	this->width = width;
 	this->height = height;
 	this->should_break = false;
-	this->color = al_map_rgb(50, 50, 50);
+	this->color = config.solid_brick_color;
 }
 
 void Brick_solid::update() {

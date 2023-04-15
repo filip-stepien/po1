@@ -1,6 +1,11 @@
 #pragma once
-#include <vector>
+#include "allegro_includes.h"
+#include "level.h"
 #include "brick.h"
+#include "game.h"
+#include "points.h"
+
+#include <vector>
 
 class Level {
 public:
@@ -10,16 +15,18 @@ public:
 	int y;
 	int width;
 	int height;
-	int x_count;
-	int y_count;
-	int brick_width;
-	int brick_height;
 	int player_gap;
+	int solid_brick_count;
 	std::vector<Brick*> bricks;
 	pattern map;
-
-	Level(int x, int y, int width, int height, int player_gap, pattern map);
+	Game* game;
+	Points* points;
+	
+	Level(pattern map, Game* game, Points* points);
+	Level(int x, int y, int width, int height, int player_gap, pattern map, Game* game, Points* points);
 	~Level();
 	void init();
 	void render();
+	bool did_game_end();
+	void handle_game_end();
 };
