@@ -19,19 +19,17 @@ public:
 	Brick* last_hit;
 	Vector2 velocity;
 	ALLEGRO_COLOR color;
-	Game* game;
-	Points* points;
 
 	Ball(double radius, double speed, Game* game, Points* points);
-	Ball(Game* game, Points* points);
+	Ball();
 	void move();
 	void render();
 	bool check_collision(const Brick* brick);
 	bool check_collision(const Player& player);
-	void handle_collision();
-	void handle_collision(const Brick *brick);
-	void handle_collision(std::vector<Brick*>& bricks);
-	void handle_collision(const Player& player);
+	bool did_fall_down();
+	void handle_wall_collision();
+	void collide(const Brick *brick);
+	void collide(const Player& player);
 	void stick(const Player& player);
 };
 

@@ -1,6 +1,6 @@
 #include "level.h"
 
-Level::Level(Level::pattern map, Game* game, Points* points) {
+Level::Level(Level::pattern map) {
 	this->x = 0;
 	this->y = 0;
 	this->width = config.window_width;
@@ -8,11 +8,9 @@ Level::Level(Level::pattern map, Game* game, Points* points) {
 	this->player_gap = config.player_gap;
 	this->map = map;
 	this->solid_brick_count = 0;
-	this->game = game;
-	this->points = points;
 }
 
-Level::Level(int x, int y, int width, int height, int player_gap, Level::pattern map, Game* game, Points* points) {
+Level::Level(int x, int y, int width, int height, int player_gap, Level::pattern map) {
 	this->x = x;
 	this->y = y;
 	this->width = width;
@@ -20,8 +18,6 @@ Level::Level(int x, int y, int width, int height, int player_gap, Level::pattern
 	this->player_gap = player_gap;
 	this->map = map;
 	this->solid_brick_count = 0;
-	this->game = game;
-	this->points = points;
 }
 
 Level::~Level() {
@@ -32,7 +28,7 @@ Level::~Level() {
 	bricks.clear();
 }
 
-void Level::init() {
+void Level::reset() {
 	int x = this->x;
 	int y = this->y;
 	int x_count = map[0].size();
@@ -77,12 +73,4 @@ bool Level::did_game_end() {
 		return true;
 	}
 	return false;
-}
-
-void Level::handle_game_end() {
-	if (did_game_end()) {
-		init();
-		game->beginning = true;
-		points->counter = 0;
-	}
 }

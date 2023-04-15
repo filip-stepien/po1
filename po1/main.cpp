@@ -22,22 +22,22 @@ int main() {
     }
 
     Points points(game.font);
-    Ball ball(&game, &points);
+    Ball ball;
     Player player;
     Level::pattern map = {
         { 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 3, 0, 0, 3, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 3, 1, 0, 3, 0, 0 },
+        { 0, 0, 0, 0, 0, 0, 0, 0 },
+        { 0, 0, 1, 1, 1, 1, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
     };
-    Level level(map, &game, &points);
+    Level level(map);
 
-    level.init();
+    level.reset();
 
     while (game.running) {
         window::get_event(game.queue, &game.event);
@@ -45,18 +45,47 @@ int main() {
             case ALLEGRO_EVENT_TIMER:
                 window::clear();
 
-                level.handle_game_end();
+                if (player.moving_left) {
+                    player.move_left();
+                }
 
-                if (player.moving_left) player.move_left();
-                if (player.moving_right) player.move_right();
+                if (player.moving_right) {
+                    player.move_right();
+                }
+
+                if (level.did_game_end()) {
+                    level.reset();
+                    game.beginning = true;
+                }
+
+                if (ball.did_fall_down()) {
+                    game.beginning = true;
+                    ball.last_hit = nullptr;
+                }
 
                 if (game.beginning) {
                     ball.stick(player);
-                }
-                else {
-                    ball.handle_collision();
-                    ball.handle_collision(level.bricks);
-                    ball.handle_collision(player);
+                } else {
+                    for (int i = 0; i < level.bricks.size(); i++) {
+                        Brick* brick = level.bricks[i];
+
+                        if (ball.check_collision(brick) && ball.last_hit != brick) {
+                            ball.last_hit = brick;
+                            ball.collide(brick);
+                            brick->update();
+
+                            if (brick->should_break) {
+                                level.bricks.erase(level.bricks.begin() + i);
+                                delete brick;
+                                points.counter++;
+                            }
+                        }
+                    }
+
+                    if (ball.check_collision(player)) {
+                        ball.collide(player);
+                    }
+                    ball.handle_wall_collision();
                     ball.move();
                 }
 
