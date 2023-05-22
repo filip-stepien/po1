@@ -9,12 +9,13 @@ public:
 	int x;
 	int y;
 	double speed;
+	double speed_cap;
 	ALLEGRO_COLOR color;
 	bool moving_right;
 	bool moving_left;
+	bool controls_inverted;
 
 	Player();
-	Player(int x, int y, int width, int height, double speed);
 
 	void render();
 	void move_right();

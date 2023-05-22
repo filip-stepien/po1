@@ -18,6 +18,15 @@ struct Config {
     int points_height;
     int points_x;
     int points_y;
+    int powerup_radius;
+    int powerup_speed;
+    int shield_y;
+    int shield_height;
+    int powerup_duration;
+    int powerup_chance;
+    double ball_speed_effect_multiplier;
+    double player_speed_effect_multiplier;
+    ALLEGRO_COLOR powerup_color;
     ALLEGRO_COLOR solid_brick_color;
     ALLEGRO_COLOR double_brick_color;
     ALLEGRO_COLOR soft_brick_color;

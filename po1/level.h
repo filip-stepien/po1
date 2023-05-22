@@ -1,9 +1,7 @@
 #pragma once
 #include "allegro_includes.h"
-#include "level.h"
 #include "brick.h"
-#include "game.h"
-#include "points.h"
+#include "config.h"
 
 #include <vector>
 

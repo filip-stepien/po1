@@ -1,26 +1,26 @@
 #pragma once
 #include "allegro_includes.h"
 #include "vector2.h"
-#include "brick.h"
 #include "player.h"
-#include "game.h"
-#include "points.h"
+#include "brick.h"
 #include "config.h"
 
 #include <vector>
-#include <math.h>
+#include <cmath>
 
 class Ball {
 public:
 	double radius;
 	double speed;
+	double speed_cap;
 	int x; 
 	int y;
 	Brick* last_hit;
 	Vector2 velocity;
 	ALLEGRO_COLOR color;
+	bool noclip;
+	bool shield_active;
 
-	Ball(double radius, double speed, Game* game, Points* points);
 	Ball();
 	void move();
 	void render();

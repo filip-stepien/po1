@@ -1,7 +1,8 @@
 #pragma once
-#include <string>
+
 #include "allegro_includes.h"
 #include "config.h"
+#include <string>
 
 class Points {
 public:

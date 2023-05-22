@@ -1,14 +1,15 @@
 #include "allegro_includes.h"
-#include "config.h"
 #include "game.h"
+#include "points.h"
+#include "player.h"
+#include "level.h"
 #include "error_handler.h"
 #include "ball.h"
-#include "level.h"
-#include "player.h"
-#include "points.h"
 #include "window.h"
+#include "powerup_manager.h"
 
 #include <iostream>
+#include <vector>
 
 int main() {
     Game game;
@@ -28,14 +29,17 @@ int main() {
         { 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 0, 0, 0, 0, 0, 0 },
+        { 0, 0, 1, 1, 1, 1, 0, 0 },
+        { 0, 0, 1, 1, 1, 1, 0, 0 },
         { 0, 0, 1, 1, 1, 1, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 0, 0, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 0, 0, 0, 0 }
     };
     Level level(map);
+
+    Powerup_manager powerup_manager;
 
     level.reset();
 
@@ -56,11 +60,13 @@ int main() {
                 if (level.did_game_end()) {
                     level.reset();
                     game.beginning = true;
+                    points.counter = 0;
                 }
 
                 if (ball.did_fall_down()) {
                     game.beginning = true;
                     ball.last_hit = nullptr;
+                    points.counter = 0;
                 }
 
                 if (game.beginning) {
@@ -78,6 +84,8 @@ int main() {
                                 level.bricks.erase(level.bricks.begin() + i);
                                 delete brick;
                                 points.counter++;
+
+                                powerup_manager.spawn_powerup(ball.x, ball.y);
                             }
                         }
                     }
@@ -93,6 +101,11 @@ int main() {
                 player.render();
                 points.render();
                 ball.render();
+
+                powerup_manager.update_powerups(ball, player);
+                powerup_manager.update_powerup_effects(ball, player);
+                powerup_manager.render_powerups();
+                powerup_manager.render_powerup_effects();
 
                 window::render_frame();           
                 break;

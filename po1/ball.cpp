@@ -7,19 +7,12 @@ Ball::Ball() {
 	this->y = -config.ball_radius;
 	this->radius = config.ball_radius;
 	this->speed = config.ball_speed;
+	this->speed_cap = config.ball_speed * config.ball_speed_effect_multiplier;
 	this->velocity = Vector2(-1, 1);
 	this->last_hit = nullptr;
 	this->color = config.ball_color;
-}
-
-Ball::Ball(double radius, double speed, Game* game, Points* points) {
-	this->x = -radius;
-	this->y = -radius;
-	this->radius = radius;
-	this->speed = speed;
-	this->velocity = Vector2(-1, 1);
-	this->last_hit = nullptr;
-	this->color = config.ball_color;
+	this->noclip = false;
+	this->shield_active = false;
 }
 
 void Ball::move() {
@@ -79,6 +72,8 @@ void Ball::handle_wall_collision() {
 }
 
 void Ball::collide(const Brick *brick) {
+	if (noclip) return;
+
 	if (x < brick->x || x > brick->x + brick->width) {
 		velocity.x = -velocity.x;
 	}
@@ -88,14 +83,14 @@ void Ball::collide(const Brick *brick) {
 }
 
 void Ball::collide(const Player& player) {
-		double collision_point_interpolated = (x - (player.x + player.width / static_cast<double>(2))) / (player.width / static_cast<double>(2));
-		double angle = collision_point_interpolated * (PI / static_cast<double>(3));
+	double collision_point_interpolated = (x - (player.x + player.width / static_cast<double>(2))) / (player.width / static_cast<double>(2));
+	double angle = collision_point_interpolated * (PI / static_cast<double>(3));
 
-		velocity.x = speed * sin(angle);
-		velocity.y = speed * cos(angle);
+	velocity.x = speed * sin(angle);
+	velocity.y = speed * cos(angle);
 
-		velocity.y = -velocity.y;
-		last_hit = nullptr;
+	velocity.y = -velocity.y;
+	last_hit = nullptr;
 }
 
 void Ball::stick(const Player& player) {
