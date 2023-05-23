@@ -153,6 +153,7 @@
     <ClCompile Include="points.cpp" />
     <ClCompile Include="powerup.cpp" />
     <ClCompile Include="powerup_manager.cpp" />
+    <ClCompile Include="shot.cpp" />
     <ClCompile Include="vector2.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -162,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="ball.h" />
     <ClInclude Include="brick.h" />
+    <ClInclude Include="shot.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="allegro_includes.h" />
     <ClInclude Include="error_handler.h" />

@@ -6,6 +6,8 @@ class Player {
 public:
 	int width;
 	int height;
+	int cannon_width;
+	int cannon_height;
 	int x;
 	int y;
 	double speed;
@@ -14,6 +16,7 @@ public:
 	bool moving_right;
 	bool moving_left;
 	bool controls_inverted;
+	bool cannon_active;
 
 	Player();
 

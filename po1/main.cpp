@@ -7,6 +7,7 @@
 #include "ball.h"
 #include "window.h"
 #include "powerup_manager.h"
+#include "shot.h"
 
 #include <iostream>
 #include <vector>
@@ -43,6 +44,7 @@ int main() {
 
     level.reset();
 
+    std::srand(std::time(nullptr));
     while (game.running) {
         window::get_event(game.queue, &game.event);
         switch (game.event.type) {
@@ -50,11 +52,11 @@ int main() {
                 window::clear();
 
                 if (player.moving_left) {
-                    player.move_left();
+                    player.controls_inverted ? player.move_right() : player.move_left();
                 }
 
                 if (player.moving_right) {
-                    player.move_right();
+                    player.controls_inverted ? player.move_left() : player.move_right();
                 }
 
                 if (level.did_game_end()) {
@@ -75,18 +77,28 @@ int main() {
                     for (int i = 0; i < level.bricks.size(); i++) {
                         Brick* brick = level.bricks[i];
 
+                        for (int j = 0; j < powerup_manager.shots.size(); j++) {
+                            Shot* shot = powerup_manager.shots[j];
+
+                            if (shot->check_collision(brick)) {
+                                brick->update();
+                                powerup_manager.shots.erase(powerup_manager.shots.begin() + j);
+                                delete shot;
+                            }
+                        }
+
                         if (ball.check_collision(brick) && ball.last_hit != brick) {
                             ball.last_hit = brick;
                             ball.collide(brick);
                             brick->update();
+                        }
 
-                            if (brick->should_break) {
-                                level.bricks.erase(level.bricks.begin() + i);
-                                delete brick;
-                                points.counter++;
+                        if (brick->should_break) {
+                            level.bricks.erase(level.bricks.begin() + i);
+                            delete brick;
+                            points.counter++;
 
-                                powerup_manager.spawn_powerup(ball.x, ball.y);
-                            }
+                            powerup_manager.spawn_powerup(ball.x, ball.y);
                         }
                     }
 

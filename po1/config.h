@@ -26,6 +26,11 @@ struct Config {
     int powerup_chance;
     double ball_speed_effect_multiplier;
     double player_speed_effect_multiplier;
+    int shot_width;
+    int shot_height;
+    int shot_speed;
+    int cannon_width;
+    int cannon_height;
     ALLEGRO_COLOR powerup_color;
     ALLEGRO_COLOR solid_brick_color;
     ALLEGRO_COLOR double_brick_color;
