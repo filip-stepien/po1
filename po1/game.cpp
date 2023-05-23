@@ -27,7 +27,7 @@ void Game::init() {
     ttf_addon_initialized = al_init_ttf_addon();
     display = al_create_display(config.window_width, config.window_height);
     queue = al_create_event_queue();
-    font = al_load_font("Arial.ttf", config.font_size, NULL);
+    font = al_load_font("PixeloidSans.ttf", config.font_size, NULL);
     timer = al_create_timer(1.0l / static_cast<double>(config.fps));
 
     al_register_event_source(queue, al_get_keyboard_event_source());
