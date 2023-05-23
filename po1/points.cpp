@@ -2,7 +2,7 @@
 
 Points::Points(ALLEGRO_FONT* font) {
 	this->x = 0;
-	this->y = config.points_y;
+	this->y = config.text_y;
 	this->counter = 0;
 	this->font = font;
 
@@ -27,16 +27,23 @@ void Points::update() {
 }
 
 void Points::render() {
-	al_draw_multiline_textf(
+	al_draw_textf(
 		font,
 		al_map_rgb(255, 255, 255),
 		x + config.window_width / 2,
 		y,
-		config.window_width,
-		al_get_font_line_height(font),
 		ALLEGRO_ALIGN_CENTER,
-		"Wynik: %d\nNajlepszy: %d",
-		counter,
+		"Wynik: %d",
+		counter
+	);
+
+	al_draw_textf(
+		font,
+		al_map_rgb(255, 255, 255),
+		x + config.window_width / 2,
+		y + al_get_font_line_height(font) + config.text_leading,
+		ALLEGRO_ALIGN_CENTER,
+		"Najlepszy: %d",
 		best_score
 	);
 }

@@ -14,7 +14,8 @@ struct Config {
     int player_width;
     int player_height;
     int player_speed;
-    int points_y;
+    int text_y;
+    int text_leading;
     int powerup_radius;
     int powerup_speed;
     int shield_y;

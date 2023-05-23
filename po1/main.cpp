@@ -29,9 +29,9 @@ int main() {
     Player player;
     
     Powerup_manager powerup_manager;
-    Level_manager level_manager;
+    Level_manager level_manager(game.font);
 
-    level_manager.load_level(level_manager.current_level_number++);
+    level_manager.load_next_level();
     level_manager.current_level->reset();
 
     std::srand(std::time(nullptr));
@@ -50,14 +50,26 @@ int main() {
                 }
 
                 if (level_manager.current_level->did_game_end() && !game.beginning) {
-                    level_manager.load_level(level_manager.current_level_number++);
+                    powerup_manager.shots.clear();
+                    powerup_manager.powerups.clear();
+                    powerup_manager.clear_all_effects(ball, player);
+
+                    level_manager.load_next_level();
                     level_manager.current_level->reset();
                     game.beginning = true;
-                    points.counter = 0;
-
+                    ball.last_hit = nullptr;
                 }
 
                 if (ball.did_fall_down()) {
+                    powerup_manager.shots.clear();
+                    powerup_manager.powerups.clear();
+                    powerup_manager.clear_all_effects(ball, player);
+
+                    level_manager.current_level_number = -1;
+                    level_manager.current_stage_number = 1;
+                    level_manager.load_next_level();
+                    level_manager.current_level->reset();
+
                     game.beginning = true;
                     ball.last_hit = nullptr;
                     points.counter = 0;
@@ -112,6 +124,8 @@ int main() {
                 powerup_manager.update_powerup_effects(ball, player);
                 powerup_manager.render_powerups();
                 powerup_manager.render_powerup_effects();
+
+                level_manager.render_level_and_stage_number();
 
                 window::render_frame();           
                 break;
