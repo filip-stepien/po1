@@ -69,6 +69,11 @@ void Ball::handle_wall_collision() {
 
 		last_hit = nullptr;
 	}
+
+	if (shield_active && y + radius > config.shield_y) {
+		velocity.y = -velocity.y;
+		y = config.shield_y - radius;
+	}
 }
 
 void Ball::collide(const Brick *brick) {

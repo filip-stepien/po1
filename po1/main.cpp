@@ -8,6 +8,7 @@
 #include "window.h"
 #include "powerup_manager.h"
 #include "shot.h"
+#include "level_manager.h"
 
 #include <iostream>
 #include <vector>
@@ -26,23 +27,12 @@ int main() {
     Points points(game.font);
     Ball ball;
     Player player;
-    Level::pattern map = {
-        { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 1, 1, 1, 1, 0, 0 },
-        { 0, 0, 1, 1, 1, 1, 0, 0 },
-        { 0, 0, 1, 2, 2, 1, 0, 0 },
-        { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 0, 0, 0, 0, 0, 0 }
-    };
-    Level level(map);
-
+    
     Powerup_manager powerup_manager;
+    Level_manager level_manager;
 
-    level.reset();
+    level_manager.load_level(level_manager.current_level_number++);
+    level_manager.current_level->reset();
 
     std::srand(std::time(nullptr));
     while (game.running) {
@@ -59,10 +49,12 @@ int main() {
                     player.controls_inverted ? player.move_left() : player.move_right();
                 }
 
-                if (level.did_game_end()) {
-                    level.reset();
+                if (level_manager.current_level->did_game_end() && !game.beginning) {
+                    level_manager.load_level(level_manager.current_level_number++);
+                    level_manager.current_level->reset();
                     game.beginning = true;
                     points.counter = 0;
+
                 }
 
                 if (ball.did_fall_down()) {
@@ -74,8 +66,8 @@ int main() {
                 if (game.beginning) {
                     ball.stick(player);
                 } else {
-                    for (int i = 0; i < level.bricks.size(); i++) {
-                        Brick* brick = level.bricks[i];
+                    for (int i = 0; i < level_manager.current_level->bricks.size(); i++) {
+                        Brick* brick = level_manager.current_level->bricks[i];
 
                         for (int j = 0; j < powerup_manager.shots.size(); j++) {
                             Shot* shot = powerup_manager.shots[j];
@@ -94,7 +86,7 @@ int main() {
                         }
 
                         if (brick->should_break) {
-                            level.bricks.erase(level.bricks.begin() + i);
+                            level_manager.current_level->bricks.erase(level_manager.current_level->bricks.begin() + i);
                             delete brick;
                             points.counter++;
 
@@ -111,7 +103,7 @@ int main() {
 
                 points.update();
 
-                level.render();
+                level_manager.current_level->render();
                 player.render();
                 points.render();
                 ball.render();

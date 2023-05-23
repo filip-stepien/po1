@@ -148,6 +148,8 @@
     <ClCompile Include="error_handler.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="level.cpp" />
+    <ClCompile Include="level_patterns.cpp" />
+    <ClCompile Include="level_manager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="points.cpp" />
@@ -163,6 +165,8 @@
   <ItemGroup>
     <ClInclude Include="ball.h" />
     <ClInclude Include="brick.h" />
+    <ClInclude Include="level_patterns.h" />
+    <ClInclude Include="level_manager.h" />
     <ClInclude Include="shot.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="allegro_includes.h" />
