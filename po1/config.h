@@ -6,6 +6,9 @@ struct Config {
     int window_height;
     int player_gap;
     int font_size;
+    int title_font_size;
+    int button_font_size;
+    int hovered_button_font_size;
     int fps;
     int ball_radius;
     int ball_speed;
@@ -31,6 +34,7 @@ struct Config {
     int cannon_height;
     int max_sway;
     double sway_frequency;
+    int click_cooldown;
     ALLEGRO_COLOR powerup_color;
     ALLEGRO_COLOR solid_brick_color;
     ALLEGRO_COLOR double_brick_color;

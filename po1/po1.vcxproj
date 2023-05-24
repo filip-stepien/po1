@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="brick.cpp" />
+    <ClCompile Include="button.cpp" />
     <ClCompile Include="config.cpp" />
     <ClCompile Include="error_handler.cpp" />
     <ClCompile Include="game.cpp" />
@@ -166,8 +167,10 @@
   <ItemGroup>
     <ClInclude Include="ball.h" />
     <ClInclude Include="brick.h" />
+    <ClInclude Include="button.h" />
     <ClInclude Include="level_patterns.h" />
     <ClInclude Include="level_manager.h" />
+    <ClInclude Include="popup.h" />
     <ClInclude Include="shot.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="allegro_includes.h" />

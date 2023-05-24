@@ -9,6 +9,7 @@
 #include "shot.h"
 #include "level_manager.h"
 #include "title.h"
+#include "button.h"
 
 #include <iostream>
 #include <vector>
@@ -34,7 +35,10 @@ int main() {
     level_manager.load_next_level();
     level_manager.current_level->reset();
 
-    Title title(0, 0, "Arkanoid", game.font);
+    Title title(0, 0, "Arkanoid", game.title_font);
+
+    Button button(100, 250, "Przycisk", game.button_font, game.button_font_hovered);
+
 
     unsigned int frame = 0;
     std::srand(std::time(nullptr));
@@ -132,6 +136,10 @@ int main() {
 
                 title.update(frame);
                 title.render();
+
+                button.update(frame);
+                button.render();
+
                 game.render_frame();     
                 frame++;
                 break;

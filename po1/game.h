@@ -12,9 +12,13 @@ public:
     bool font_addon_initialized;
     bool ttf_addon_initialized;
     bool image_addon_initialized;
+    bool mouse_initialized;
     ALLEGRO_DISPLAY* display;
     ALLEGRO_EVENT_QUEUE* queue;
     ALLEGRO_FONT* font;
+    ALLEGRO_FONT* button_font;
+    ALLEGRO_FONT* button_font_hovered;
+    ALLEGRO_FONT* title_font;
     ALLEGRO_TIMER* timer;
     ALLEGRO_EVENT event;
     bool running;

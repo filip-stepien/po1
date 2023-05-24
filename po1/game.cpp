@@ -9,9 +9,12 @@ Game::Game() {
     this->font_addon_initialized = false;
     this->ttf_addon_initialized = false;
     this->image_addon_initialized = false;
+    this->mouse_initialized = false;
     this->display = nullptr;
     this->queue = nullptr;
     this->font = nullptr;
+    this->button_font = nullptr;
+    this->button_font_hovered = nullptr;
     this->event = {};
     this->timer = nullptr;
     this->running = true;
@@ -30,9 +33,13 @@ void Game::init() {
     font_addon_initialized = al_init_font_addon();
     ttf_addon_initialized = al_init_ttf_addon();
     image_addon_initialized = al_init_image_addon();
+    mouse_initialized = al_install_mouse();
     display = al_create_display(config.window_width, config.window_height);
     queue = al_create_event_queue();
-    font = al_load_font("PixeloidSans.ttf", config.font_size, NULL);
+    font = al_load_font("PixeloidSans.ttf", config.font_size, 0);
+    title_font = al_load_font("PixeloidSans.ttf", config.title_font_size, 0);
+    button_font = al_load_font("PixeloidSans.ttf", config.button_font_size, 0);
+    button_font_hovered = al_load_font("PixeloidSans.ttf", config.hovered_button_font_size, 0);
     timer = al_create_timer(1.0l / static_cast<double>(config.fps));
     background = al_load_bitmap("background.png");
 
