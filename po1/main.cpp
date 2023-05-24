@@ -8,6 +8,7 @@
 #include "powerup_manager.h"
 #include "shot.h"
 #include "level_manager.h"
+#include "title.h"
 
 #include <iostream>
 #include <vector>
@@ -33,6 +34,9 @@ int main() {
     level_manager.load_next_level();
     level_manager.current_level->reset();
 
+    Title title(0, 0, "Arkanoid", game.font);
+
+    unsigned int frame = 0;
     std::srand(std::time(nullptr));
     while (game.running) {
         game.get_event();
@@ -126,7 +130,10 @@ int main() {
 
                 level_manager.render_level_and_stage_number();
 
-                game.render_frame();           
+                title.update(frame);
+                title.render();
+                game.render_frame();     
+                frame++;
                 break;
 
             case ALLEGRO_EVENT_KEY_DOWN:

@@ -30,6 +30,7 @@ struct Config {
     int cannon_width;
     int cannon_height;
     int max_sway;
+    double sway_frequency;
     ALLEGRO_COLOR powerup_color;
     ALLEGRO_COLOR solid_brick_color;
     ALLEGRO_COLOR double_brick_color;

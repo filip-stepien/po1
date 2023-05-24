@@ -29,6 +29,7 @@ Config config = {
     20,
     40,
     10,
+    0.05f,
     al_map_rgb(255, 255, 255),
     al_map_rgb(50, 50, 50),
     al_map_rgb(150, 150, 150),
