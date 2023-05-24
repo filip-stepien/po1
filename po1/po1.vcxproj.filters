@@ -45,9 +45,6 @@
     <ClCompile Include="points.cpp">
       <Filter>Pliki zasobów</Filter>
     </ClCompile>
-    <ClCompile Include="window.cpp">
-      <Filter>Pliki zasobów</Filter>
-    </ClCompile>
     <ClCompile Include="powerup.cpp">
       <Filter>Pliki zasobów</Filter>
     </ClCompile>
@@ -61,6 +58,9 @@
       <Filter>Pliki zasobów</Filter>
     </ClCompile>
     <ClCompile Include="level_manager.cpp">
+      <Filter>Pliki zasobów</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
       <Filter>Pliki zasobów</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,9 +98,6 @@
     <ClInclude Include="points.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="window.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="powerup.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
@@ -114,6 +111,9 @@
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="level_patterns.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>

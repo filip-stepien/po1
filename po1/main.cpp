@@ -5,7 +5,6 @@
 #include "level.h"
 #include "error_handler.h"
 #include "ball.h"
-#include "window.h"
 #include "powerup_manager.h"
 #include "shot.h"
 #include "level_manager.h"
@@ -36,10 +35,10 @@ int main() {
 
     std::srand(std::time(nullptr));
     while (game.running) {
-        window::get_event(game.queue, &game.event);
+        game.get_event();
         switch (game.event.type) {
             case ALLEGRO_EVENT_TIMER:
-                window::clear();
+                game.clear();
 
                 if (player.moving_left) {
                     player.controls_inverted ? player.move_right() : player.move_left();
@@ -127,7 +126,7 @@ int main() {
 
                 level_manager.render_level_and_stage_number();
 
-                window::render_frame();           
+                game.render_frame();           
                 break;
 
             case ALLEGRO_EVENT_KEY_DOWN:

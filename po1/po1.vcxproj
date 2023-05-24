@@ -81,6 +81,7 @@
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonImage>true</Allegro_AddonImage>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -156,8 +157,8 @@
     <ClCompile Include="powerup.cpp" />
     <ClCompile Include="powerup_manager.cpp" />
     <ClCompile Include="shot.cpp" />
+    <ClCompile Include="title.cpp" />
     <ClCompile Include="vector2.cpp" />
-    <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -176,9 +177,9 @@
     <ClInclude Include="points.h" />
     <ClInclude Include="powerup.h" />
     <ClInclude Include="powerup_manager.h" />
+    <ClInclude Include="title.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
