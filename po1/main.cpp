@@ -39,7 +39,6 @@ int main() {
 
     Button button(100, 250, "Przycisk", game.button_font, game.button_font_hovered);
 
-
     unsigned int frame = 0;
     std::srand(std::time(nullptr));
     while (game.running) {
