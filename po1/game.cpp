@@ -13,12 +13,15 @@ Game::Game() {
     this->display = nullptr;
     this->queue = nullptr;
     this->font = nullptr;
+    this->title_font = nullptr;
     this->button_font = nullptr;
     this->button_font_hovered = nullptr;
     this->event = {};
     this->timer = nullptr;
     this->running = true;
     this->beginning = true;
+    this->started = false;
+    this->paused = false;
     this->background = nullptr;
 }
 

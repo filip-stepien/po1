@@ -23,6 +23,8 @@ public:
     ALLEGRO_EVENT event;
     bool running;
     bool beginning;
+    bool started;
+    bool paused;
     ALLEGRO_BITMAP* background;
 
     Game();

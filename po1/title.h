@@ -15,6 +15,7 @@ public:
 	double sway_frequency;
 	const char* text;
 	ALLEGRO_FONT* font;
+	bool visible;
 
 	Title(int x, int y, const char* text, ALLEGRO_FONT* font);
 	void update(unsigned int frame);
