@@ -11,6 +11,7 @@ Powerup_manager::Powerup_manager() {
 	this->cannon_effect_start = 0;
 	this->powerup_count = 6;
 	this->last_shot = 0;
+	this->shield_sprite = al_load_bitmap("shield.png");
 }
 
 void Powerup_manager::spawn_powerup(int x, int y) {
@@ -20,22 +21,22 @@ void Powerup_manager::spawn_powerup(int x, int y) {
 	int random_powerup = rand() % powerup_count;
 	switch (random_powerup) {
 		case Powerup::EFFECT_NOCLIP: 
-			powerups.push_back(new Powerup_noclip(x, y, Powerup::EFFECT_NOCLIP)); 
+			powerups.push_back(new Powerup_noclip(x, y, "noclip_powerup.png", Powerup::EFFECT_NOCLIP));
 			break;
 		case Powerup::EFFECT_SHIELD: 
-			powerups.push_back(new Powerup_shield(x, y, Powerup::EFFECT_SHIELD)); 
+			powerups.push_back(new Powerup_shield(x, y, "shield_powerup.png", Powerup::EFFECT_SHIELD));
 			break;
 		case Powerup::EFFECT_BALL_SPEED: 
-			powerups.push_back(new Powerup_ball_speed(x, y, Powerup::EFFECT_BALL_SPEED)); 
+			powerups.push_back(new Powerup_ball_speed(x, y, "ball_speed_powerup.png", Powerup::EFFECT_BALL_SPEED));
 			break;
 		case Powerup::EFFECT_PLAYER_SPEED: 
-			powerups.push_back(new Powerup_player_speed(x, y, Powerup::EFFECT_PLAYER_SPEED)); 
+			powerups.push_back(new Powerup_player_speed(x, y, "player_speed_powerup.png", Powerup::EFFECT_PLAYER_SPEED));
 			break;
 		case Powerup::EFFECT_INVERT_CONTROLS: 
-			powerups.push_back(new Powerup_invert_controls(x, y, Powerup::EFFECT_INVERT_CONTROLS)); 
+			powerups.push_back(new Powerup_invert_controls(x, y, "controls_invert_powerup.png", Powerup::EFFECT_INVERT_CONTROLS));
 			break;
 		case Powerup::EFFECT_CANNON: 
-			powerups.push_back(new Powerup_cannon(x, y, Powerup::EFFECT_CANNON)); 
+			powerups.push_back(new Powerup_cannon(x, y, "cannon_powerup.png", Powerup::EFFECT_CANNON));
 			break;
 	}
 }
@@ -74,8 +75,8 @@ void Powerup_manager::render_powerups() {
 }
 
 void Powerup_manager::render_powerup_effects() {
-	if (shield_effect_start > 0)
-	al_draw_filled_rectangle(0, config.shield_y, config.window_width, config.shield_y + config.shield_height, al_map_rgb(255, 255, 255));
+	if (shield_effect_start > 0 && shield_sprite != nullptr)
+	al_draw_bitmap(shield_sprite, 0, shield_y, 0);
 
 	for (int i = 0; i < shots.size(); i++)
 	shots[i]->render();

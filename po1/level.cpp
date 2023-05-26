@@ -39,26 +39,38 @@ void Level::reset() {
 	bricks.clear();
 	solid_brick_count = 0;
 
-	for (int i = 0; i < y_count; i++) { 
+	const char* brick_sprites[4] = { "brick0.png", "brick1.png", "brick2.png", "brick3.png" };
+	int sprite_idx = 0;
+	bool inserted;
+
+	for (int i = 0; i < y_count; i++) {
+		inserted = false;
 		for (int j = 0; j < x_count; j++) {
 
 			switch (map[i][j]) {
 				case 1:
-					bricks.push_back(new Brick(x, y, brick_width, brick_height));
+					bricks.push_back(new Brick(x, y, brick_width, brick_height, brick_sprites[rand() % 4]));
+					inserted = true;
 					break;
 				case 2:
-					bricks.push_back(new Brick_double(x, y, brick_width, brick_height));
+					bricks.push_back(new Brick_double(x, y, brick_width, brick_height, brick_sprites[rand() % 4]));
+					inserted = true;
 					break;
 				case 3:
-					bricks.push_back(new Brick_solid(x, y, brick_width, brick_height));
+					bricks.push_back(new Brick_solid(x, y, brick_width, brick_height, brick_sprites[rand() % 4]));
+					inserted = true;
 					solid_brick_count++;
 					break;
 			}
 
 			x += brick_width;
 		}
+
 		x = this->x;
 		y += brick_height;
+
+		if (inserted) sprite_idx++;
+		if (sprite_idx == 3) sprite_idx = 0;
 	}
 }
 

@@ -13,6 +13,7 @@ Ball::Ball() {
 	this->color = config.ball_color;
 	this->noclip = false;
 	this->shield_active = false;
+	this->sprite = al_load_bitmap("ball.png");
 }
 
 void Ball::move() {
@@ -23,7 +24,8 @@ void Ball::move() {
 }
 
 void Ball::render() {
-	al_draw_filled_circle(x, y, radius, color);
+	if (sprite != nullptr)
+		al_draw_bitmap(sprite, x - radius, y - radius, 0);
 }
 
 bool Ball::check_collision(const Brick *brick) {

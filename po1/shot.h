@@ -12,6 +12,7 @@ public:
 	int height;
 	Vector2 velocity;
 	int speed;
+	ALLEGRO_BITMAP* sprite;
 
 	Shot(int x, int y);
 	void move();

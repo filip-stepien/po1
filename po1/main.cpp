@@ -144,26 +144,28 @@ int main() {
                 break;
 
             case ALLEGRO_EVENT_KEY_DOWN:
+                if (game.paused) {
+                    game.paused = false;
+                    break;
+                }
+
                 switch (game.event.keyboard.keycode) {
                     case ALLEGRO_KEY_LEFT:
+                        if(game.started && !game.paused)
                         player.moving_left = true;
                         break;
                     case ALLEGRO_KEY_RIGHT:
+                        if (game.started && !game.paused)
                         player.moving_right = true;
                         break;
                     case ALLEGRO_KEY_SPACE: 
+                        if (game.started && !game.paused)
                         game.beginning = false;
                         break;
                     case ALLEGRO_KEY_ESCAPE:
-
-                        if (game.paused) {
-                            game.paused = false;
-                        } else {
-                            game.paused = true;
-                            menu.title->visible = menu.start->visible = false;
-                            menu.pause->visible = menu.back->visible = true;
-                        }
-
+                        game.paused = true;
+                        menu.title->visible = menu.start->visible = false;
+                        menu.pause->visible = menu.back->visible = true;
                         break;
                 }
                 break;

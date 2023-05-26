@@ -20,8 +20,9 @@ public:
 	int y;
 	Vector2 velocity;
 	ALLEGRO_COLOR color;
+	ALLEGRO_BITMAP* sprite;
 
-	Powerup(int x, int y, effects effect);
+	Powerup(int x, int y, const char* sprite, effects effect);
 	void move();
 	void render();
 	bool check_collision(const Player& player);
@@ -31,36 +32,36 @@ public:
 
 class Powerup_noclip : public Powerup {
 public:
-	Powerup_noclip(int x, int y, effects effect);
+	Powerup_noclip(int x, int y, const char* sprite, effects effect);
 	void collide(Ball& ball, Player& player);
 };
 
 class Powerup_shield : public Powerup {
 public:
-	Powerup_shield(int x, int y, effects effect);
+	Powerup_shield(int x, int y, const char* sprite, effects effect);
 	void collide(Ball& ball, Player& player);
 };
 
 class Powerup_ball_speed : public Powerup {
 public:
-	Powerup_ball_speed(int x, int y, effects effect);
+	Powerup_ball_speed(int x, int y, const char* sprite, effects effect);
 	void collide(Ball& ball, Player& player);
 };
 
 class Powerup_player_speed : public Powerup {
 public:
-	Powerup_player_speed(int x, int y, effects effect);
+	Powerup_player_speed(int x, int y, const char* sprite, effects effect);
 	void collide(Ball& ball, Player& player);
 };
 
 class Powerup_invert_controls : public Powerup {
 public:
-	Powerup_invert_controls(int x, int y, effects effect);
+	Powerup_invert_controls(int x, int y, const char* sprite, effects effect);
 	void collide(Ball& ball, Player& player);
 };
 
 class Powerup_cannon : public Powerup {
 public:
-	Powerup_cannon(int x, int y, effects effect);
+	Powerup_cannon(int x, int y, const char* sprite, effects effect);
 	void collide(Ball& ball, Player& player);
 };

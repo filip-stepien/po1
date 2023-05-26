@@ -10,8 +10,9 @@ class Brick {
 	int height;
 	bool should_break;
 	ALLEGRO_COLOR color;
+	ALLEGRO_BITMAP* sprite;
 
-	Brick(int x, int y, int width, int height);
+	Brick(int x, int y, int width, int height, const char* sprite);
 	virtual void render();
 	virtual void update();
 };
@@ -19,13 +20,18 @@ class Brick {
 class Brick_double : public Brick {
 public:
 	int hit_count;
+	ALLEGRO_BITMAP* shield_sprite;
 
-	Brick_double(int x, int y, int width, int height);
+	Brick_double(int x, int y, int width, int height, const char* sprite);
 	void update();
+	void render();
 };
 
 class Brick_solid : public Brick {
 public:
-	Brick_solid(int x, int y, int width, int height);
+	ALLEGRO_BITMAP* shield_sprite;
+
+	Brick_solid(int x, int y, int width, int height, const char* sprite);
 	void update();
+	void render();
 };

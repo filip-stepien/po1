@@ -7,6 +7,7 @@ Shot::Shot(int x, int y) {
 	this->height = config.shot_height;
 	this->velocity = Vector2(0, -1);
 	this->speed = config.shot_speed;
+	this->sprite = al_load_bitmap("shot.png");
 
 	velocity = velocity.normalized();
 	velocity = velocity * speed;
@@ -18,7 +19,8 @@ void Shot::move() {
 }
 
 void Shot::render() {
-	al_draw_filled_rectangle(x, y, x + width, y + height, al_map_rgb(255, 255, 0));
+	if (sprite != nullptr)
+	al_draw_bitmap(sprite, x, y, 0);
 }
 
 bool Shot::check_collision(Brick* brick) {

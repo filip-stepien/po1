@@ -20,6 +20,7 @@ public:
 	ALLEGRO_COLOR color;
 	bool noclip;
 	bool shield_active;
+	ALLEGRO_BITMAP* sprite;
 
 	Ball();
 	void move();

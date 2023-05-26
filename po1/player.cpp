@@ -5,7 +5,7 @@ Player::Player() {
 	this->height = config.player_height;
 	this->cannon_width = config.cannon_width;
 	this->cannon_height = config.cannon_height;
-	this->x = config.player_x;
+	this->x = config.window_width / 2 - config.player_width / 2;
 	this->y = config.player_y;
 	this->speed = config.player_speed;
 	this->speed_cap = config.player_speed * config.player_speed_effect_multiplier;
@@ -14,6 +14,8 @@ Player::Player() {
 	this->cannon_active = false;
 	this->moving_right = false;
 	this->moving_left = false;
+	this->sprite = al_load_bitmap("player.png");
+	this->cannon_sprite = al_load_bitmap("cannon.png");
 }
 
 void Player::move_right() {
@@ -27,8 +29,9 @@ void Player::move_left() {
 }
 
 void Player::render() {
-	al_draw_filled_rectangle(x, y, x + width, y + height, color);
+	if (sprite != nullptr)
+	al_draw_bitmap(sprite, x, y, 0);
 
-	if(cannon_active)
-	al_draw_filled_rectangle(x + width / 2 - cannon_width / 2, y - height - cannon_height, x + width / 2 + cannon_width / 2, y, al_map_rgb(255, 0, 0));
+	if(cannon_active && cannon_sprite != nullptr)
+	al_draw_bitmap(cannon_sprite, x + width / 2 - cannon_width / 2, y - cannon_height, 0);
 }

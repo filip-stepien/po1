@@ -27,6 +27,8 @@ public:
 	std::time_t cannon_effect_start;
 	std::time_t last_shot;
 
+	ALLEGRO_BITMAP* shield_sprite;
+
 	Powerup_manager();
 	void spawn_powerup(int x, int y);
 	void update_powerups(Ball& ball, Player& player);
