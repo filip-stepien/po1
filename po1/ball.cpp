@@ -3,8 +3,8 @@
 constexpr double PI = 3.141592653589793238462643383279502884L;
 
 Ball::Ball() {
-	this->x = -config.ball_radius;
-	this->y = -config.ball_radius;
+	this->x = 0;
+	this->y = 0;
 	this->radius = config.ball_radius;
 	this->speed = config.ball_speed;
 	this->speed_cap = config.ball_speed * config.ball_speed_effect_multiplier;

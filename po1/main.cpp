@@ -33,13 +33,12 @@ int main() {
     Powerup_manager powerup_manager;
     Level_manager level_manager(game.font);
 
+    Menu menu(game);
+
+    unsigned int frame = 0;
     level_manager.load_next_level();
     level_manager.current_level->reset();
 
-    const char* menu_title = "Arkanoid";
-    Menu menu(game.title_font, game.button_font, game.button_font_hovered);
-
-    unsigned int frame = 0;
     std::srand(std::time(nullptr));
     while (game.running) {
         game.get_event();
@@ -49,15 +48,13 @@ int main() {
 
                 if (!game.started || game.paused) {
                     menu.update(frame, game);
-                    menu.render(game);
+                    menu.render(points.local_best);
                 } else {
-                    if (player.moving_left) {
-                        player.controls_inverted ? player.move_right() : player.move_left();
-                    }
+                    if (player.moving_left)
+                    player.controls_inverted ? player.move_right() : player.move_left();
 
-                    if (player.moving_right) {
-                        player.controls_inverted ? player.move_left() : player.move_right();
-                    }
+                    if (player.moving_right)
+                    player.controls_inverted ? player.move_left() : player.move_right();
 
                     if (level_manager.current_level->did_game_end() && !game.beginning) {
                         powerup_manager.shots.clear();
@@ -75,14 +72,21 @@ int main() {
                         powerup_manager.powerups.clear();
                         powerup_manager.clear_all_effects(ball, player);
 
+                        menu.title->visible = menu.start->visible = menu.pause->visible = menu.back->visible = false;
+                        menu.end->visible = menu.new_game->visible = true;
+
+                        ball.last_hit = nullptr;
+                        points.local_best = points.counter;
+                        points.counter = 0;
+   
                         level_manager.current_level_number = -1;
                         level_manager.current_stage_number = 1;
                         level_manager.load_next_level();
                         level_manager.current_level->reset();
+                        player.reset();
 
                         game.beginning = true;
-                        ball.last_hit = nullptr;
-                        points.counter = 0;
+                        game.started = false;
                     }
 
                     if (game.beginning) {
@@ -117,26 +121,24 @@ int main() {
                             }
                         }
 
-                        if (ball.check_collision(player)) {
-                            ball.collide(player);
-                        }
+                        if (ball.check_collision(player)) ball.collide(player);
                         ball.handle_wall_collision();
                         ball.move();
                     }
 
-                    points.update();
-
+                    level_manager.render_level_and_stage_number();
                     level_manager.current_level->render();
                     player.render();
+
+                    points.update();
                     points.render();
+
                     ball.render();
 
                     powerup_manager.update_powerups(ball, player);
                     powerup_manager.update_powerup_effects(ball, player);
                     powerup_manager.render_powerups();
                     powerup_manager.render_powerup_effects();
-
-                    level_manager.render_level_and_stage_number();
                 }
 
                 game.render_frame();     
@@ -163,9 +165,11 @@ int main() {
                         game.beginning = false;
                         break;
                     case ALLEGRO_KEY_ESCAPE:
-                        game.paused = true;
-                        menu.title->visible = menu.start->visible = false;
-                        menu.pause->visible = menu.back->visible = true;
+                        if (game.started) {
+                            game.paused = true;
+                            menu.title->visible = menu.start->visible = menu.end->visible = menu.new_game->visible = false;
+                            menu.pause->visible = menu.back->visible = true;
+                        }
                         break;
                 }
                 break;

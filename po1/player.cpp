@@ -35,3 +35,8 @@ void Player::render() {
 	if(cannon_active && cannon_sprite != nullptr)
 	al_draw_bitmap(cannon_sprite, x + width / 2 - cannon_width / 2, y - cannon_height, 0);
 }
+
+void Player::reset() {
+	x = config.window_width / 2 - width / 2;
+	y = config.player_y;
+}

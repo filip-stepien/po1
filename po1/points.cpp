@@ -4,6 +4,7 @@ Points::Points(ALLEGRO_FONT* font) {
 	this->x = 0;
 	this->y = config.text_y;
 	this->counter = 0;
+	this->local_best = 0;
 	this->font = font;
 
 	std::fstream save_file("score.save");

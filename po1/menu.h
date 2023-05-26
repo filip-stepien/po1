@@ -13,12 +13,16 @@ public:
 	int y;
 	int title_x;
 	int title_y;
+	int end_x;
+	int end_y;
 	int pause_x;
 	int pause_y;
 	int start_x;
 	int start_y;
 	int back_x;
 	int back_y;
+	int new_game_x;
+	int new_game_y;
 	int mute_x;
 	int mute_y;
 	int width;
@@ -26,12 +30,15 @@ public:
 	ALLEGRO_BITMAP* background;
 	Title* title;
 	Title* pause;
+	Title* end;
 	Button* start;
 	Button* back;
+	Button* new_game;
 	Image_button* mute;
+	ALLEGRO_FONT* font;
 
-	Menu(ALLEGRO_FONT* title_font, ALLEGRO_FONT* button_font, ALLEGRO_FONT* button_font_hovered);
+	Menu(const Game& game);
 	~Menu();
 	void update(unsigned int frame, Game& game);
-	void render(const Game& game);
+	void render(int score);
 };

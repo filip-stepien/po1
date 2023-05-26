@@ -11,6 +11,7 @@ class Points {
 public:
 	int counter;
 	int best_score;
+	int local_best;
 	int x;
 	int y;
 	ALLEGRO_FONT* font;
