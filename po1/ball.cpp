@@ -10,7 +10,6 @@ Ball::Ball() {
 	this->speed_cap = config.ball_speed * config.ball_speed_effect_multiplier;
 	this->velocity = Vector2(-1, 1);
 	this->last_hit = nullptr;
-	this->color = config.ball_color;
 	this->noclip = false;
 	this->shield_active = false;
 	this->sprite = al_load_bitmap("ball.png");

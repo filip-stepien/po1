@@ -12,7 +12,6 @@ public:
 	int y;
 	double speed;
 	double speed_cap;
-	ALLEGRO_COLOR color;
 	ALLEGRO_BITMAP* sprite;
 	ALLEGRO_BITMAP* cannon_sprite;
 	bool moving_right;

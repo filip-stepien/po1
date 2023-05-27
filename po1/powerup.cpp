@@ -8,7 +8,6 @@ Powerup::Powerup(int x, int y, const char* sprite, effects effect) {
 	this->x = x;
 	this->y = y;
 	this->velocity = Vector2(0, 1);
-	this->color = config.powerup_color;
 	this->effect = effect;
 	this->sprite = al_load_bitmap(sprite);
 

@@ -9,7 +9,6 @@ Player::Player() {
 	this->y = config.player_y;
 	this->speed = config.player_speed;
 	this->speed_cap = config.player_speed * config.player_speed_effect_multiplier;
-	this->color = config.player_color;
 	this->controls_inverted = false;
 	this->cannon_active = false;
 	this->moving_right = false;

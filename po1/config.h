@@ -36,12 +36,6 @@ struct Config {
     int max_sway;
     double sway_frequency;
     int click_cooldown;
-    ALLEGRO_COLOR powerup_color;
-    ALLEGRO_COLOR solid_brick_color;
-    ALLEGRO_COLOR double_brick_color;
-    ALLEGRO_COLOR soft_brick_color;
-    ALLEGRO_COLOR player_color;
-    ALLEGRO_COLOR ball_color;
 };
 
 extern struct Config config;

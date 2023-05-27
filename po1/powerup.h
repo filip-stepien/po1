@@ -19,7 +19,6 @@ public:
 	int x;
 	int y;
 	Vector2 velocity;
-	ALLEGRO_COLOR color;
 	ALLEGRO_BITMAP* sprite;
 
 	Powerup(int x, int y, const char* sprite, effects effect);

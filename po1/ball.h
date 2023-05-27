@@ -18,7 +18,6 @@ public:
 	int y;
 	Brick* last_hit;
 	Vector2 velocity;
-	ALLEGRO_COLOR color;
 	bool noclip;
 	bool shield_active;
 	ALLEGRO_BITMAP* sprite;

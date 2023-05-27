@@ -9,7 +9,6 @@ class Brick {
 	int width;
 	int height;
 	bool should_break;
-	ALLEGRO_COLOR color;
 	ALLEGRO_BITMAP* sprite;
 
 	Brick(int x, int y, int width, int height, const char* sprite);
