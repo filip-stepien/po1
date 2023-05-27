@@ -3,6 +3,7 @@
 #include "powerup.h"
 #include "player.h"
 #include "shot.h"
+#include "sounds.h"
 
 #include <iostream>
 #include <cstdio>
@@ -31,10 +32,10 @@ public:
 
 	Powerup_manager();
 	void spawn_powerup(int x, int y);
-	void update_powerups(Ball& ball, Player& player);
+	void update_powerups(Ball& ball, Player& player, Sounds& sounds);
 	void render_powerups();
 	void render_powerup_effects();
-	void update_powerup_effects(Ball& ball, Player& player);
+	void update_powerup_effects(Ball& ball, Player& player, Sounds& sounds);
 	void clear_noclip_effect(Ball& ball);
 	void clear_shield_effect(Ball& ball);
 	void clear_ball_speed_effect(Ball& ball);

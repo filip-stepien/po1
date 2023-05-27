@@ -11,6 +11,7 @@
 #include "title.h"
 #include "button.h"
 #include "menu.h"
+#include "sounds.h"
 
 #include <iostream>
 #include <vector>
@@ -34,6 +35,9 @@ int main() {
     Level_manager level_manager(game.font);
 
     Menu menu(game);
+    Sounds sounds;
+
+    sounds.play_music();
 
     unsigned int frame = 0;
     level_manager.load_next_level();
@@ -47,7 +51,7 @@ int main() {
                 game.clear();
 
                 if (!game.started || game.paused) {
-                    menu.update(frame, game);
+                    menu.update(frame, game, sounds);
                     menu.render(points.local_best);
                 } else {
                     if (player.moving_left)
@@ -102,6 +106,7 @@ int main() {
                                 if (shot->check_collision(brick)) {
                                     brick->update();
                                     powerup_manager.shots.erase(powerup_manager.shots.begin() + j);
+                                    sounds.play_bounce();
                                     delete shot;
                                 }
                             }
@@ -110,6 +115,7 @@ int main() {
                                 ball.last_hit = brick;
                                 ball.collide(brick);
                                 brick->update();
+                                if (!ball.noclip) sounds.play_bounce();
                             }
 
                             if (brick->should_break) {
@@ -121,8 +127,12 @@ int main() {
                             }
                         }
 
-                        if (ball.check_collision(player)) ball.collide(player);
-                        ball.handle_wall_collision();
+                        if (ball.check_collision(player)) {
+                            ball.collide(player);
+                            sounds.play_bounce();
+                        }
+
+                        ball.handle_wall_collision(sounds);
                         ball.move();
                     }
 
@@ -135,8 +145,8 @@ int main() {
 
                     ball.render();
 
-                    powerup_manager.update_powerups(ball, player);
-                    powerup_manager.update_powerup_effects(ball, player);
+                    powerup_manager.update_powerups(ball, player, sounds);
+                    powerup_manager.update_powerup_effects(ball, player, sounds);
                     powerup_manager.render_powerups();
                     powerup_manager.render_powerup_effects();
                 }

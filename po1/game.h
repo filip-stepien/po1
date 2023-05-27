@@ -12,6 +12,8 @@ public:
     bool font_addon_initialized;
     bool ttf_addon_initialized;
     bool image_addon_initialized;
+    bool audio_addon_initialized;
+    bool acodec_addon_initialized;
     bool mouse_initialized;
     ALLEGRO_DISPLAY* display;
     ALLEGRO_EVENT_QUEUE* queue;

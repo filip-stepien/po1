@@ -82,6 +82,8 @@
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_AddonFont>true</Allegro_AddonFont>
     <Allegro_AddonImage>true</Allegro_AddonImage>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -159,6 +161,7 @@
     <ClCompile Include="powerup.cpp" />
     <ClCompile Include="powerup_manager.cpp" />
     <ClCompile Include="shot.cpp" />
+    <ClCompile Include="sounds.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="vector2.cpp" />
   </ItemGroup>
@@ -181,6 +184,7 @@
     <ClInclude Include="points.h" />
     <ClInclude Include="powerup.h" />
     <ClInclude Include="powerup_manager.h" />
+    <ClInclude Include="sounds.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="player.h" />

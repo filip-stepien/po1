@@ -45,18 +45,28 @@ Menu::~Menu() {
 	delete mute;
 }
 
-void Menu::update(unsigned int frame, Game& game) {
+void Menu::update(unsigned int frame, Game& game, Sounds& sounds) {
 	title->update(frame);
 	pause->update(frame);
 	start->update(frame);
 	back->update(frame);
-	mute->update(frame);
+	mute->update(frame, sounds);
 	end->update(frame);
 	new_game->update(frame);
 
-	if (start->visible && start->is_clicked() && !game.started) game.started = true;
-	if (back->visible && back->is_clicked() && game.started && game.paused) game.paused = false;
-	if (new_game->visible && new_game->is_clicked() && !game.started) game.started = true;
+	if (start->visible && start->is_clicked() && !game.started) {
+		game.started = true;
+		sounds.play_option();
+	}
+
+	if (back->visible && back->is_clicked() && game.started && game.paused) {
+		game.paused = false;
+		sounds.play_option();
+	}
+	if (new_game->visible && new_game->is_clicked() && !game.started) {
+		game.started = true;
+		sounds.play_option();
+	}
 }
 
 void Menu::render(int score) {

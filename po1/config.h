@@ -4,6 +4,7 @@
 struct Config {
     int window_width;
     int window_height;
+    float volume;
     int player_gap;
     int font_size;
     int title_font_size;

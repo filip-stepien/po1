@@ -47,8 +47,6 @@ bool Button::is_on_cooldown() {
 }
 
 void Button::update(unsigned int frame) {
-	if (!visible) return;
-
 	bool hovered = is_hovered();
 	bool clicked = is_clicked();
 	bool on_cooldown = is_on_cooldown();
@@ -76,7 +74,7 @@ void Button::update(unsigned int frame) {
 		last_click_frame = frame;
 	}
 
-	if (frame == last_click_frame + click_cooldown) {
+	if (frame >= last_click_frame + click_cooldown) {
 		last_click_frame = 0;
 	}
 }
@@ -99,19 +97,17 @@ Image_button::Image_button(int x, int y, const char* background_down, const char
 	this->on = true;
 }
 
-void Image_button::update(unsigned int frame) {
-	if (!visible) return;
-
+void Image_button::update(unsigned int frame, Sounds& sounds) {
 	bool clicked = is_clicked();
 	bool on_cooldown = is_on_cooldown();
 
 	if (clicked && !on_cooldown) {
-		std::cout << "Glosniczek" << "\n";
 		last_click_frame = frame;
+		on ? sounds.mute() : sounds.unmute();
 		on = !on;
 	}
 
-	if (frame == last_click_frame + click_cooldown) {
+	if (frame >= last_click_frame + click_cooldown) {
 		last_click_frame = 0;
 	}
 }

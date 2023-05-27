@@ -9,6 +9,8 @@ Game::Game() {
     this->font_addon_initialized = false;
     this->ttf_addon_initialized = false;
     this->image_addon_initialized = false;
+    this->audio_addon_initialized = false;
+    this->acodec_addon_initialized = false;
     this->mouse_initialized = false;
     this->display = nullptr;
     this->queue = nullptr;
@@ -36,6 +38,8 @@ void Game::init() {
     font_addon_initialized = al_init_font_addon();
     ttf_addon_initialized = al_init_ttf_addon();
     image_addon_initialized = al_init_image_addon();
+    audio_addon_initialized = al_install_audio();
+    acodec_addon_initialized = al_init_acodec_addon();
     mouse_initialized = al_install_mouse();
     display = al_create_display(config.window_width, config.window_height);
     queue = al_create_event_queue();

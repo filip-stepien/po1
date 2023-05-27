@@ -4,6 +4,7 @@
 #include "button.h"
 #include "config.h"
 #include "game.h"
+#include "sounds.h"
 
 #include <vector>
 
@@ -39,6 +40,6 @@ public:
 
 	Menu(const Game& game);
 	~Menu();
-	void update(unsigned int frame, Game& game);
+	void update(unsigned int frame, Game& game, Sounds& sounds);
 	void render(int score);
 };

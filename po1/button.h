@@ -2,6 +2,7 @@
 
 #include "allegro_includes.h"
 #include "config.h"
+#include "sounds.h"
 
 #include <iostream>
 
@@ -36,6 +37,6 @@ public:
 	bool on;
 
 	Image_button(int x, int y, const char* background_down, const char* background_up);
-	void update(unsigned int frame);
+	void update(unsigned int frame, Sounds& sounds);
 	void render();
 };

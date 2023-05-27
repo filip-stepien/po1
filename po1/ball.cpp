@@ -51,7 +51,7 @@ bool Ball::did_fall_down() {
 	return false;
 }
 
-void Ball::handle_wall_collision() {
+void Ball::handle_wall_collision(Sounds& sounds) {
 	if (x > config.window_width - radius || x < radius) {
 		velocity.x = -velocity.x;
 		if (x > config.window_width - radius)
@@ -75,6 +75,8 @@ void Ball::handle_wall_collision() {
 	if (shield_active && y + radius > config.shield_y) {
 		velocity.y = -velocity.y;
 		y = config.shield_y - radius;
+
+		sounds.play_bounce();
 	}
 }
 

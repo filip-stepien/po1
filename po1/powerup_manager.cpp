@@ -41,7 +41,7 @@ void Powerup_manager::spawn_powerup(int x, int y) {
 	}
 }
 
-void Powerup_manager::update_powerups(Ball& ball, Player& player) {
+void Powerup_manager::update_powerups(Ball& ball, Player& player, Sounds& sounds) {
 	for (int i = 0; i < powerups.size(); i++) {
 		Powerup* powerup = powerups[i];
 
@@ -63,6 +63,8 @@ void Powerup_manager::update_powerups(Ball& ball, Player& player) {
 			powerup->collide(ball, player);
 			powerups.erase(powerups.begin() + i);
 			delete powerup;
+
+			sounds.play_powerup();
 		}
 	}
 }
@@ -82,7 +84,7 @@ void Powerup_manager::render_powerup_effects() {
 	shots[i]->render();
 }
 
-void Powerup_manager::update_powerup_effects(Ball& ball, Player& player) {
+void Powerup_manager::update_powerup_effects(Ball& ball, Player& player, Sounds& sounds) {
 	std::time_t current_time = std::time(nullptr);
 
 	if (current_time - noclip_effect_start == config.powerup_duration) clear_noclip_effect(ball);
@@ -95,6 +97,7 @@ void Powerup_manager::update_powerup_effects(Ball& ball, Player& player) {
 	if (current_time - last_shot == 1) {
 		shots.push_back(new Shot(player.x + player.width / 2 - config.shot_width / 2, player.y - player.height - player.cannon_height - config.shot_height));
 		last_shot = current_time;
+		sounds.play_shot();
 	}
 
 	for (int i = 0; i < shots.size(); i++) {
