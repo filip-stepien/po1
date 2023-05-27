@@ -9,14 +9,19 @@ Points::Points(ALLEGRO_FONT* font) {
 
 	std::fstream save_file("score.save");
 
-	if (save_file.is_open()) save_file >> this->best_score;
-	else this->best_score = 0;
+	if (save_file.is_open()) {
+		save_file >> this->best_score;
+		save_file >> this->initial_best;
+	} else {
+		this->best_score = 0;
+		this->initial_best = 0;
+	}
 
 	save_file.close();
 }
 
 Points::~Points() {
-	if (best_score > counter) {
+	if (best_score > initial_best) {
 		std::ofstream save_file("score.save", std::ios::out | std::ios::trunc);
 		save_file << best_score;
 		save_file.close();
@@ -47,4 +52,10 @@ void Points::render() {
 		"Najlepszy: %d",
 		best_score
 	);
+}
+
+void Points::save() {
+	std::ofstream save_file("score.save", std::ios::out | std::ios::trunc);
+	save_file << counter;
+	save_file.close();
 }

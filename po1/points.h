@@ -12,6 +12,7 @@ public:
 	int counter;
 	int best_score;
 	int local_best;
+	int initial_best;
 	int x;
 	int y;
 	ALLEGRO_FONT* font;
@@ -20,4 +21,5 @@ public:
 	~Points();
 	void render();
 	void update();
+	void save();
 };
