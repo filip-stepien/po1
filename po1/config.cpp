@@ -1,5 +1,11 @@
+﻿/**
+ * @file config.cpp
+ * @brief Konfiguracja gry
+ */
+
 #include "config.h"
 
+//! struktura przechowująca zmienne gry
 Config config = {
 	800,
 	600,

@@ -1,3 +1,8 @@
+﻿/**
+ * @file player.cpp
+ * @brief Klasa gracza
+ */
+
 #include "player.h"
 
 Player::Player() {

@@ -1,3 +1,8 @@
+﻿/**
+ * @file menu.cpp
+ * @brief Klasa menu gry
+ */
+
 #include "menu.h"
 
 Menu::Menu(const Game& game) {

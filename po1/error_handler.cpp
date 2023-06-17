@@ -1,3 +1,8 @@
+﻿/**
+ * @file error_handler.cpp
+ * @brief Klasa obsługi błędów
+ */
+
 #include "error_handler.h"
 
 Error_handler::Error_handler(Game* game) {

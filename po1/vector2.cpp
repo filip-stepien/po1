@@ -1,3 +1,9 @@
+﻿/**
+ * @file vector2.cpp
+ * @brief Klasa wektora 2D
+ */
+
+
 #include "vector2.h"
 
 Vector2::Vector2() {

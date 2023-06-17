@@ -1,3 +1,8 @@
+﻿/**
+ * @file title.cpp
+ * @brief Klasa tytułu
+ */
+
 #include "title.h"
 
 Title::Title(int x, int y, const char* text, ALLEGRO_FONT* font) {

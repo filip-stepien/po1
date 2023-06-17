@@ -1,5 +1,11 @@
+﻿/**
+ * @file level_patterns.cpp
+ * @brief Szablony poziomów
+ */
+
 #include "level_patterns.h"
 
+ //! szablony poziomów
 std::vector<Level::pattern> pattern_list = {
     {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },

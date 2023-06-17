@@ -1,3 +1,8 @@
+﻿/**
+ * @file brick.cpp
+ * @brief Klasa cegiełki
+ */
+
 #include "brick.h"
 
 Brick::Brick(int x, int y, int width, int height, const char* sprite) {

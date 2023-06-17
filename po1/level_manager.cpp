@@ -1,3 +1,8 @@
+﻿/**
+ * @file level_manager.cpp
+ * @brief Klasa menedżera poziomów
+ */
+
 #include "level_manager.h"
 
 Level_manager::Level_manager(ALLEGRO_FONT* font) {

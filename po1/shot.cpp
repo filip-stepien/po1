@@ -1,3 +1,8 @@
+﻿/**
+ * @file shot.cpp
+ * @brief Klasa lasera
+ */
+
 #include "shot.h"
 
 Shot::Shot(int x, int y) {

@@ -1,3 +1,8 @@
+﻿/**
+ * @file powerup_manager.cpp
+ * @brief Klasa menedżera modyfikatorów
+ */
+
 #include "powerup_manager.h"
 
 Powerup_manager::Powerup_manager() {

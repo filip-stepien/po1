@@ -1,3 +1,8 @@
+﻿/**
+ * @file game.cpp
+ * @brief Klasa gry
+ */
+
 #include "game.h"
 
 Game::Game() {

@@ -1,3 +1,8 @@
+﻿/**
+ * @file button.cpp
+ * @brief Klasa przycisku
+ */
+
 #include "button.h"
 
 Button::Button(int x, int y, const char* text, ALLEGRO_FONT* font, ALLEGRO_FONT* font_hovered) {

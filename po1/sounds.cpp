@@ -1,3 +1,8 @@
+﻿/**
+ * @file sounds.cpp
+ * @brief Klasa dźwięków gry
+ */
+
 #include "sounds.h"
 
 #include <iostream>

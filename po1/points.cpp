@@ -1,3 +1,8 @@
+﻿/**
+ * @file points.cpp
+ * @brief Klasa licznika wyniku
+ */
+
 #include "points.h"
 
 Points::Points(ALLEGRO_FONT* font) {

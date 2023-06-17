@@ -1,3 +1,8 @@
+﻿/**
+ * @file level.cpp
+ * @brief Klasa poziomu
+ */
+
 #include "level.h"
 
 Level::Level(Level::pattern map) {

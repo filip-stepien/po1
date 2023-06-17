@@ -1,3 +1,8 @@
+﻿/**
+ * @file powerup.cpp
+ * @brief Klasa modyfikatora
+ */
+
 #pragma once
 
 #include "powerup.h"
